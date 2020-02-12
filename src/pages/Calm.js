@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Nav } from "../components/Nav";
 import { Ocean } from "../components/Ocean/Ocean";
+import { clamp, calmRange } from "../components/Ocean/weather.js";
+
+const [min, max] = calmRange;
 
 export function Calm({ user, notion }) {
   const [calm, setCalm] = useState(0);
@@ -11,7 +14,12 @@ export function Calm({ user, notion }) {
     }
 
     const subscription = notion.calm().subscribe(calm => {
-      setCalm(Number(calm.probability.toFixed(2)));
+      const calmScore = clamp(
+        Number(calm.probability.toFixed(2)),
+        min,
+        max
+      );
+      setCalm(calmScore);
     });
 
     return () => {
@@ -22,7 +30,7 @@ export function Calm({ user, notion }) {
   return (
     <main>
       {user ? <Nav notion={notion} /> : null}
-      <meter value={calm} min={0} max={1} />
+      <meter value={calm} min={min} max={max} />
       <Ocean calm={calm} />
     </main>
   );
