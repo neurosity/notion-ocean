@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Nav } from "../components/Nav";
 import { Ocean } from "../components/Ocean/Ocean";
 import { clamp, calmRange } from "../components/Ocean/weather.js";
+import { averageScoreBuffer } from "../utils";
 
 const [min, max] = calmRange;
 
@@ -13,13 +14,13 @@ export function Calm({ user, notion }) {
       return;
     }
 
-    const subscription = notion.calm().subscribe(calm => {
-      const calmScore = clamp(
-        Number(calm.probability.toFixed(2)),
-        min,
-        max
-      );
+    const calmAverage$ = notion.calm().pipe(averageScoreBuffer());
+
+    const subscription = calmAverage$.subscribe(calm => {
+      const calmScore = clamp(calm, min, max);
+      console.log("Calm", calmScore);
       setCalm(calmScore);
+      // setCalm(0);
     });
 
     return () => {

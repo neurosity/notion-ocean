@@ -179,7 +179,7 @@ body {
 meter {
   position: fixed;
   width: 100vw;
-  height: 4px;
+  height: 8px;
   top: 0;
   left: 0;
 }
@@ -194,7 +194,7 @@ meter::-webkit-meter-even-less-good-value {
 meter::-webkit-meter-bar {
   background: transparent;
 }
-
+/* Old color rgba(113, 211, 211, 0.4);*/
 meter::-webkit-meter-optimum-value {
-  background: rgba(113, 211, 211, 0.4);
+  background: #4fb0ff;
 }
