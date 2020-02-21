@@ -118,6 +118,12 @@ body {
   margin: 0 0 12px 0;
 }
 
+.audio-logo {
+  margin: 16px 8px 8px 8px;
+  position: relative;
+  z-index: 2;
+}
+
 /**
  * components/Status.js
  */

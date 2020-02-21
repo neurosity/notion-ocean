@@ -4,18 +4,26 @@ import { Ocean } from "../components/Ocean/Ocean";
 import { clamp, calmRange } from "../components/Ocean/weather.js";
 import { averageScoreBuffer } from "../utils";
 
+import volumeIcon from "../images/volume.png";
+import noVolumeIcon from "../images/noVolume.png";
+
 const niceOceanSounds = new Audio("../../sounds/niceOceanSounds.mp3");
 
 const [min, max] = calmRange;
 
-let playSounds = false;
-
 export function Calm({ user, notion }) {
   const [calm, setCalm] = useState(0);
+  const [isPlayingSounds, setIsPlaying] = useState(false);
 
   function playSounds() {
-    playSounds = true;
-    niceOceanSounds.play();
+    if (!isPlayingSounds) {
+      niceOceanSounds.play();
+      niceOceanSounds.currentTime = 2;
+    } else {
+      niceOceanSounds.pause();
+      niceOceanSounds.currentTime = 2;
+    }
+    setIsPlaying(prevIsPlayingSounds => !prevIsPlayingSounds);
     niceOceanSounds.volume = 0.3;
   }
 
@@ -58,9 +66,25 @@ export function Calm({ user, notion }) {
     <main>
       {user ? <Nav notion={notion} /> : null}
       <meter value={calm} min={min} max={max} />
-      <button type="button" onClick={playSounds} className="card-btn">
-        Audio
-      </button>
+      {isPlayingSounds ? (
+        <img
+          src={noVolumeIcon}
+          width="30px"
+          hieght="30px"
+          onClick={playSounds}
+          alt="Volume Button"
+          className="audio-logo"
+        />
+      ) : (
+        <img
+          src={volumeIcon}
+          width="30px"
+          hieght="30px"
+          onClick={playSounds}
+          alt="Volume Button"
+          className="audio-logo"
+        />
+      )}
       <Ocean calm={calm} />
     </main>
   );
