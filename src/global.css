@@ -83,6 +83,8 @@ body {
   font-size: inherit;
   margin-top: 16px;
   cursor: pointer;
+  position: relative;
+  z-index: 2;
 }
 
 .card-link {
