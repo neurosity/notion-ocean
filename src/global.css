@@ -83,6 +83,8 @@ body {
   font-size: inherit;
   margin-top: 16px;
   cursor: pointer;
+  position: relative;
+  z-index: 2;
 }
 
 .card-link {
@@ -114,6 +116,12 @@ body {
 .card-error {
   color: cadetblue;
   margin: 0 0 12px 0;
+}
+
+.audio-logo {
+  margin: 24px 0 0 14px;
+  position: relative;
+  z-index: 2;
 }
 
 /**
@@ -179,7 +187,7 @@ body {
 meter {
   position: fixed;
   width: 100vw;
-  height: 4px;
+  height: 8px;
   top: 0;
   left: 0;
 }
@@ -194,7 +202,7 @@ meter::-webkit-meter-even-less-good-value {
 meter::-webkit-meter-bar {
   background: transparent;
 }
-
+/* Old color rgba(113, 211, 211, 0.4);*/
 meter::-webkit-meter-optimum-value {
-  background: rgba(113, 211, 211, 0.4);
+  background: #4fb0ff;
 }
