@@ -4,7 +4,7 @@ import noVolumeIcon from "../images/noVolume.png";
 import { mapRange } from "../utils/index";
 
 const niceOceanSounds = new Audio("../../sounds/niceOceanSounds.mp3");
-const volumeRange = [0.0, 1.0];
+const volumeRange = [0.0, 0.3];
 
 export function Sound({ calm, calmRange }) {
   const [isPlayingSounds, setIsPlaying] = useState(false);
