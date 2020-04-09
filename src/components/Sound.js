@@ -16,7 +16,6 @@ export function Sound({ calm, calmRange }) {
       toRange: volumeRange,
       reverse: true,
     });
-    console.log("calm", calm, "volume", volume);
     niceOceanSounds.volume = volume;
   }, [calm]);
 
