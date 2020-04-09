@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
 import volumeIcon from "../images/volume.png";
 import noVolumeIcon from "../images/noVolume.png";
+import { mapRange } from "../utils/index";
 
 const niceOceanSounds = new Audio("../../sounds/niceOceanSounds.mp3");
+const volumeRange = [0.0, 1.0];
 
-export function Sound({ calm }) {
+export function Sound({ calm, calmRange }) {
   const [isPlayingSounds, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    setAudioVolume(calm);
+    const volume = mapRange({
+      value: calm,
+      fromRange: calmRange,
+      toRange: volumeRange,
+      reverse: true,
+    });
+    console.log("calm", calm, "volume", volume);
+    niceOceanSounds.volume = volume;
   }, [calm]);
 
   function playSounds() {
@@ -19,25 +28,10 @@ export function Sound({ calm }) {
       niceOceanSounds.pause();
       niceOceanSounds.currentTime = 2;
     }
-    setIsPlaying(prevIsPlayingSounds => !prevIsPlayingSounds);
+    setIsPlaying((prevIsPlayingSounds) => !prevIsPlayingSounds);
     niceOceanSounds.volume = 0.3;
   }
 
-  function setAudioVolume(calmScore) {
-    let volume = 0.0;
-    if (calmScore < 0.1) {
-      volume = 1.0;
-    } else if (calmScore < 0.15) {
-      volume = 0.7;
-    } else if (calmScore < 0.2) {
-      volume = 0.5;
-    } else if (calmScore < 0.25) {
-      volume = 0.3;
-    } else {
-      volume = 0.2;
-    }
-    niceOceanSounds.volume = volume;
-  }
   if (isPlayingSounds) {
     return (
       <img
