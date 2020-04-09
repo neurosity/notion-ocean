@@ -17,8 +17,8 @@ export function Calm({ user, notion }) {
 
     const subscription = notion
       .calm()
-      .pipe(averageScoreBuffer())
-      .subscribe(calm => {
+      .pipe(averageScoreBuffer(15, 4))
+      .subscribe((calm) => {
         const calmScore = clamp(calm, min, max);
         setCalm(calmScore);
       });
